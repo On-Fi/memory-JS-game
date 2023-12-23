@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.index = index;
-        card.innerHTML = symbol;
+        card.innerHTML = '<span class="symbol">' + symbol + '</span>';
         card.addEventListener('click', flipCard);
         gameContainer.appendChild(card);
     });
 
     function flipCard() {
-        if (flippedCards.length < 2) {
+        if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
             const clickedCard = this;
             clickedCard.classList.add('flipped');
             flippedCards.push(clickedCard);
