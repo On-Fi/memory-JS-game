@@ -60,8 +60,10 @@
         });
 
         function flipCard() {
-            if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
-                const clickedCard = this;
+            const clickedCard = this;
+
+            if (!flippedCards.includes(clickedCard) && flippedCards.length < 2) {
+                // Flip the card
                 clickedCard.classList.add('flipped');
                 flippedCards.push(clickedCard);
 
