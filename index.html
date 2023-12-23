@@ -4,13 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
 </head>
 <body>
 
-<div id="game-container" class="game-container"></div>
+<div id="game-container"></div>
 
-<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const symbols = ['🍎', '🍌', '🍒', '🍓', '🍇', '🍊', '🍋', '🍉'];
+        const cards = [...symbols, ...symbols];
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        // Shuffle the cards
+        cards.sort(() => Math.random() - 0.5);
+
+        const gameContainer = document.getElementById('game-container');
+
+        // Create card elements
+        cards.forEach((symbol, index) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.index = index;
+            card.innerHTML = symbol;
+            card.addEventListener('click', flipCard);
+            gameContainer.appendChild(card);
+        });
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
+                const clickedCard = this;
+                clickedCard.classList.add('flipped');
+                flippedCards.push(clickedCard);
+
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            const index1 = card1.dataset.index;
+            const index2 = card2.dataset.index;
+
+            if (cards[index1] === cards[index2]) {
+                // Match found
+                matchedPairs++;
+                if (matchedPairs === symbols.length) {
+                    alert('Congratulations! You matched all pairs.');
+                }
+            } else {
+                // No match, flip the cards back
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+
+            flippedCards = [];
+        }
+    });
+</script>
 
 </body>
 </html>
