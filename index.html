@@ -30,6 +30,11 @@
             font-size: 24px;
             cursor: pointer;
             user-select: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
         }
     </style>
 </head>
@@ -55,20 +60,18 @@
             card.classList.add('card');
             card.dataset.index = index;
             card.innerHTML = symbol;
-            card.addEventListener('click', flipCard);
+            card.addEventListener('click', () => flipCard(card));
             gameContainer.appendChild(card);
         });
 
-        function flipCard() {
-            const clickedCard = this;
-
+        function flipCard(clickedCard) {
             if (!flippedCards.includes(clickedCard) && flippedCards.length < 2) {
                 // Flip the card
                 clickedCard.classList.add('flipped');
                 flippedCards.push(clickedCard);
 
                 if (flippedCards.length === 2) {
-                    setTimeout(checkMatch, 500);
+                    setTimeout(() => checkMatch(), 500);
                 }
             }
         }
