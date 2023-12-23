@@ -21,19 +21,41 @@
         }
 
         .card {
+            position: relative;
             width: 100px;
             height: 100px;
-            background-color: #ddd;
+            cursor: pointer;
+            user-select: none;
+            background-color: hsla(0, 79%, 6%, 0.117);
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card .front,
+        .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.3s ease-in-out;
+            backface-visibility: hidden;
         }
 
-        .flipped {
+        .card .back {
+            transform: rotateY(180deg);
+            background-color: hsla(0, 79%, 6%, 0.117);
+            background-size: cover;
+        }
+
+        .flipped .card-inner {
             transform: rotateY(180deg);
         }
     </style>
@@ -43,59 +65,77 @@
 <div id="game-container"></div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const symbols = ['🍎', '🍌', '🍒', '🍓', '🍇', '🍊', '🍋', '🍉'];
-        const cards = [...symbols, ...symbols];
-        let flippedCards = [];
-        let matchedPairs = 0;
+   document.addEventListener('DOMContentLoaded', function () {
+    const symbols = ['🍎', '🍌', '🍒', '🍓', '🍇', '🍊', '🍋', '🍉', '🍍', '🍑'];
+    const cards = [...symbols, ...symbols];
+    let flippedCards = [];
+    let matchedPairs = 0;
 
-        // Shuffle the cards
-        cards.sort(() => Math.random() - 0.5);
+    // Shuffle the cards
+    cards.sort(() => Math.random() - 0.5);
 
-        const gameContainer = document.getElementById('game-container');
+    const gameContainer = document.getElementById('game-container');
 
-        // Create card elements
-        cards.forEach((symbol, index) => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.index = index;
-            card.innerHTML = symbol;
-            card.addEventListener('click', () => flipCard(card));
-            gameContainer.appendChild(card);
-        });
+    // Create card elements
+    cards.forEach((symbol, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-        function flipCard(clickedCard) {
-            if (!flippedCards.includes(clickedCard) && flippedCards.length < 2) {
-                // Flip the card
-                clickedCard.classList.add('flipped');
-                flippedCards.push(clickedCard);
+        const cardInner = document.createElement('div');
+        cardInner.classList.add('card-inner');
 
-                if (flippedCards.length === 2) {
-                    setTimeout(() => checkMatch(), 500);
-                }
-            }
-        }
+        const front = document.createElement('div');
+        front.classList.add('front');
+        front.innerHTML = '?'; // Initial state, showing a question mark
 
-        function checkMatch() {
-            const [card1, card2] = flippedCards;
-            const index1 = card1.dataset.index;
-            const index2 = card2.dataset.index;
+        const back = document.createElement('div');
+        back.classList.add('back');
+        back.innerHTML = symbol;
 
-            if (cards[index1] === cards[index2]) {
-                // Match found
-                matchedPairs++;
-                if (matchedPairs === symbols.length) {
-                    alert('Congratulations! You matched all pairs.');
-                }
-            } else {
-                // No match, flip the cards back
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-            }
+        cardInner.appendChild(front);
+        cardInner.appendChild(back);
 
-            flippedCards = [];
-        }
+        card.appendChild(cardInner);
+
+        card.addEventListener('click', () => flipCard(card));
+        gameContainer.appendChild(card);
     });
+
+    function flipCard(clickedCard) {
+        if (!clickedCard.classList.contains('flipped') && flippedCards.length < 2) {
+            // Flip the card
+            clickedCard.classList.add('flipped');
+
+            flippedCards.push(clickedCard);
+
+            if (flippedCards.length === 2) {
+                setTimeout(() => checkMatch(), 500);
+            }
+        }
+    }
+
+    function checkMatch() {
+        const [card1, card2] = flippedCards;
+        const symbol1 = card1.querySelector('.back').innerHTML;
+        const symbol2 = card2.querySelector('.back').innerHTML;
+
+        if (symbol1 === symbol2) {
+            // Match found
+            matchedPairs++;
+            if (matchedPairs === symbols.length) {
+                alert('Congratulations! You matched all pairs.');
+            }
+        } else {
+            // No match, flip the cards back
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+        }
+
+        // Clear the flipped cards array
+        flippedCards = [];
+    }
+});
+
 </script>
 
 </body>
