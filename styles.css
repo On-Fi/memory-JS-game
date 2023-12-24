@@ -8,9 +8,14 @@ body {
     background-color: #f0f0f0;
 }
 
+h1 {
+    font-size: 3.5rem; /* Set the font size to be twice the default size */
+}
 
 #restart-button {
     margin-bottom: 20px;  /* Added margin to create space between button and game container */
+    width: 60px;
+    height: 30px;
 }
 
 #game-container {
@@ -25,7 +30,8 @@ body {
     height: 100px;
     cursor: pointer;
     user-select: none;
-    background-color: hwb(0 0% 100% / 0.509);
+    color: rgba(240, 255, 254, 0.375);
+    background-color: rgba(0, 0, 0, 0.618);
     perspective: 1000px;
 }
 
@@ -50,7 +56,7 @@ body {
 
 .card .back {
     transform: rotateY(180deg);
-    background-color: white;
+    background-color: rgba(240, 255, 254, 0.375);
     background-size: cover;
 }
 
