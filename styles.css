@@ -2,32 +2,58 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    flex-direction: column; /* Added to stack button and game container vertically */
+    height: 90vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
 }
 
-.game-container {
+
+#restart-button {
+    margin-bottom: 20px;  /* Added margin to create space between button and game container */
+}
+
+#game-container {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-gap: 10px;
+    grid-template-columns: repeat(5, 100px);
+    gap: 10px;
 }
 
 .card {
+    position: relative;
     width: 100px;
-    height: 150px;
-    background-color: #fff;
-    border-radius: 8px;
+    height: 100px;
+    cursor: pointer;
+    user-select: none;
+    background-color: hwb(0 0% 100% / 0.509);
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ;
+}
+
+.card .front,
+.card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 65px;
+    backface-visibility: hidden;
 }
 
-.card.flipped {
-    background-color: #3498db;
-    color: #fff;
+.card .back {
+    transform: rotateY(180deg);
+    background-color: white;
+    background-size: cover;
+}
+
+.flipped .card-inner {
+    transform: rotateY(180deg);
 }

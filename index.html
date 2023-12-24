@@ -4,139 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 120vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-
-        #game-container {
-            display: grid;
-            grid-template-columns: repeat(4, 100px);
-            gap: 10px;
-        }
-
-        .card {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-            user-select: none;
-            background-color: hwb(0 0% 100% / 0.509);
-            perspective: 1000px;
-        }
-
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s ;
-        }
-
-        .card .front,
-        .card .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 65px;
-            backface-visibility: hidden;
-        }
-
-        .card .back {
-            transform: rotateY(180deg);
-            background-color: white;
-            background-size: cover;
-        }
-
-        .flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+<h1>Memory</h1>
+<button id="restart-button">Restart Game</button>
 <div id="game-container"></div>
 
-<script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const symbols = ['🍎', '🍌', '🍒', '🍓', '🍇', '🍊', '🍋', '🍉', '🍍', '🍑'];
-    const cards = [...symbols, ...symbols];
-    let flippedCards = [];
-    let matchedPairs = 0;
-
-    // Shuffle the cards
-    cards.sort(() => Math.random() - 0.5);
-
-    const gameContainer = document.getElementById('game-container');
-
-    // Create card elements
-    cards.forEach((symbol, index) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-
-        const cardInner = document.createElement('div');
-        cardInner.classList.add('card-inner');
-
-        const front = document.createElement('div');
-        front.classList.add('front');
-        front.innerHTML = '?'; // Initial state, showing a question mark
-
-        const back = document.createElement('div');
-        back.classList.add('back');
-        back.innerHTML = symbol;
-
-        cardInner.appendChild(front);
-        cardInner.appendChild(back);
-
-        card.appendChild(cardInner);
-
-        card.addEventListener('click', () => flipCard(card));
-        gameContainer.appendChild(card);
-    });
-
-    function flipCard(clickedCard) {
-        if (!clickedCard.classList.contains('flipped') && flippedCards.length < 2) {
-            // Flip the card
-            clickedCard.classList.add('flipped');
-
-            flippedCards.push(clickedCard);
-
-            if (flippedCards.length === 2) {
-                setTimeout(() => checkMatch(), 1000);
-            }
-        }
-    }
-
-    function checkMatch() {
-        const [card1, card2] = flippedCards;
-        const symbol1 = card1.querySelector('.back').innerHTML;
-        const symbol2 = card2.querySelector('.back').innerHTML;
-
-        if (symbol1 === symbol2) {
-            // Match found
-            matchedPairs++;
-            if (matchedPairs === symbols.length) {
-                alert('Congratulations! You matched all pairs.');
-            }
-        } else {
-            // No match, flip the cards back
-            card1.classList.remove('flipped');
-            card2.classList.remove('flipped');
-        }
-
-        // Clear the flipped cards array
-        flippedCards = [];
-    }
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
