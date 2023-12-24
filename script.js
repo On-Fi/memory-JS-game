@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const symbols = ['🍎', '🍌', '🍒', '🍓', '🍇', '🍊', '🍋', '🍉', '🍍', '🍑'];
+    const symbols = ['💋', '🌙', '🌷', '🧿', '🖤', '💩', '☠️', '🦈', '🐲', '🧸'];
     const cards = [...symbols, ...symbols];
     let flippedCards = [];
     let matchedPairs = 0;
