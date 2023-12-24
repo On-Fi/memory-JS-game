@@ -1,21 +1,49 @@
 body {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column; /* Added to stack button and game container vertically */
-    height: 90vh;
+    flex-direction: column;
+    height: 120vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background: linear-gradient(-45deg, #2c3e50, #3498db, #e74c3c, #1abc9c);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s infinite;
+    color: hsla(192, 15%, 94%, 0.825); /* Light text color */
+    transition: background-color 0.3s ease-in-out; /* Added transition for smooth dark mode toggle */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 h1 {
-    font-size: 3.5rem; /* Set the font size to be twice the default size */
+    font-size: 4.5rem; /* Set the font size to be twice the default size */
+    margin: 20px; /* Remove margin */
+    padding: 10px; /* Remove padding */
 }
 
 #restart-button {
-    margin-bottom: 20px;  /* Added margin to create space between button and game container */
-    width: 60px;
-    height: 30px;
+    margin-top: 30px;  /* Added margin to create space between button and game container */
+    width: 80px;
+    height: 60px;
+    color: hsla(192, 15%, 94%, 0.825); /* Set text color for buttons */
+    background-color: rgba(0, 0, 0, 0.618);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Add a smooth transition on hover */
+}
+
+#restart-button:hover {
+   color: rgba(0, 0, 0, 0.618);
+    background-color:  hsla(192, 15%, 94%, 0.825); /* Change background color on hover */
 }
 
 #game-container {
@@ -30,7 +58,7 @@ h1 {
     height: 100px;
     cursor: pointer;
     user-select: none;
-    color: rgba(240, 255, 254, 0.375);
+    color: hsla(192, 15%, 94%, 0.825);
     background-color: rgba(0, 0, 0, 0.618);
     perspective: 1000px;
 }
@@ -56,10 +84,11 @@ h1 {
 
 .card .back {
     transform: rotateY(180deg);
-    background-color: rgba(240, 255, 254, 0.375);
+    background-color: hsla(192, 15%, 94%, 0.825);
     background-size: cover;
 }
 
 .flipped .card-inner {
     transform: rotateY(180deg);
 }
+
