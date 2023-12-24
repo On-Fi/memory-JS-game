@@ -7,8 +7,7 @@ body {
     background: linear-gradient(-45deg, #2c3e50, #3498db, #e74c3c, #1abc9c);
     background-size: 400% 400%;
     animation: gradientAnimation 15s infinite;
-    color: hsla(192, 15%, 94%, 0.825); /* Light text color */
-    transition: background-color 0.3s ease-in-out; /* Added transition for smooth dark mode toggle */
+    color: hsla(192, 15%, 94%, 0.825); 
 }
 
 @keyframes gradientAnimation {
@@ -24,16 +23,16 @@ body {
 }
 
 h1 {
-    font-size: 4.5rem; /* Set the font size to be twice the default size */
-    margin: 20px; /* Remove margin */
-    padding: 10px; /* Remove padding */
+    font-size: 4.5rem; 
+    margin: 20px;
+    padding: 10px; 
 }
 
 #restart-button {
     margin-top: 30px;  /* Added margin to create space between button and game container */
     width: 80px;
     height: 60px;
-    color: hsla(192, 15%, 94%, 0.825); /* Set text color for buttons */
+    color: hsla(192, 15%, 94%, 0.825); 
     background-color: rgba(0, 0, 0, 0.618);
     border: none;
     border-radius: 9px;
@@ -43,7 +42,7 @@ h1 {
 
 #restart-button:hover {
    color: rgba(0, 0, 0, 0.618);
-    background-color:  hsla(192, 15%, 94%, 0.825); /* Change background color on hover */
+    background-color:  hsla(192, 15%, 94%, 0.825); 
 }
 
 #game-container {
