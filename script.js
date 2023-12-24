@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Match found
             matchedPairs++;
             if (matchedPairs === symbols.length) {
-                alert('Congratulations! You matched all pairs.');
+                alert('Glückwunsch');
             }
         } else {
             // No match, flip the cards back
